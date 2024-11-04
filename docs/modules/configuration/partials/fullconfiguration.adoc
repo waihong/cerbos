@@ -41,8 +41,8 @@ audit:
     authentication: # Authentication
       sasl:
         mechanism: PLAIN # Mechanism is the SASL authentication mechanism.
-        password: password # Password of the user to be authenticated.
-        username: username # Username is used as authenticated principal.
+        password: password # Password of the authenticated user.
+        username: username # Username is the name of the authenticated principal.
       tls: 
         caPath: /path/to/ca.crt # Required. CAPath is the path to the CA certificate.
         certPath: /path/to/tls.cert # CertPath is the path to the client certificate.

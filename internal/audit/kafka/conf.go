@@ -44,10 +44,10 @@ type TLS struct {
 type Sasl struct {
 	// Mechanism is the SASL authentication mechanism.
 	Mechanism string `yaml:"mechanism" conf:",example=PLAIN"`
-	// Username is used as authenticated principal.
-	Username string `yaml:"username" conf:",example=username"`
-	// Password of the user to be authenticated.
+	// Password of the authenticated user.
 	Password string `yaml:"password" conf:",example=password"`
+	// Username is the name of the authenticated principal.
+	Username string `yaml:"username" conf:",example=username"`
 }
 
 // Conf is optional configuration for kafka Audit.
