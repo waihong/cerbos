@@ -39,6 +39,10 @@ audit:
   kafka:
     ack: all # Ack mode for producing messages. Valid values are "none", "leader" or "all" (default). Idempotency is disabled when mode is not "all".
     authentication: # Authentication
+      sasl:
+        mechanism: PLAIN # Mechanism is the SASL authentication mechanism.
+        password: password # Password of the user to be authenticated.
+        username: username # Username is used as authenticated principal.
       tls: 
         caPath: /path/to/ca.crt # Required. CAPath is the path to the CA certificate.
         certPath: /path/to/tls.cert # CertPath is the path to the client certificate.

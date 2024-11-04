@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/twmb/franz-go/pkg/kgo"
+	"github.com/twmb/franz-go/pkg/sasl/plain"
 	"github.com/twmb/franz-go/plugin/kzap"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -124,6 +125,18 @@ func NewPublisher(ctx context.Context, conf *Conf, decisionFilter audit.Decision
 		clientOpts = append(clientOpts, kgo.DialTLSConfig(tlsConfig))
 	}
 
+	if conf.Authentication.Sasl != nil {
+		switch conf.Authentication.Sasl.Mechanism {
+		case "PLAIN":
+			clientOpts = append(clientOpts, kgo.SASL(plain.Auth{
+				User: conf.Authentication.Sasl.Username,
+				Pass: conf.Authentication.Sasl.Password,
+			}.AsMechanism()))
+		default:
+			return nil, fmt.Errorf("SASL mechanism not supported: %v", conf.Authentication.Sasl.Mechanism)
+		}
+	}
+	
 	client, err := kgo.NewClient(clientOpts...)
 	if err != nil {
 		return nil, err

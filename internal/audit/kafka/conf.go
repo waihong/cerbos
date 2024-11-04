@@ -25,6 +25,7 @@ const (
 
 type Authentication struct {
 	TLS *TLS `yaml:"tls"`
+	Sasl *Sasl `yaml:"sasl"`
 }
 
 type TLS struct {
@@ -38,6 +39,15 @@ type TLS struct {
 	ReloadInterval time.Duration `yaml:"reloadInterval" conf:",example=5m"`
 	// InsecureSkipVerify controls whether the server's certificate chain and host name are verified. Default is false.
 	InsecureSkipVerify bool `yaml:"insecureSkipVerify" conf:",example=true"`
+}
+
+type Sasl struct {
+	// Mechanism is the SASL authentication mechanism.
+	Mechanism string `yaml:"mechanism" conf:",example=PLAIN"`
+	// Username is used as authenticated principal.
+	Username string `yaml:"username" conf:",example=username"`
+	// Password of the user to be authenticated.
+	Password string `yaml:"password" conf:",example=password"`
 }
 
 // Conf is optional configuration for kafka Audit.
